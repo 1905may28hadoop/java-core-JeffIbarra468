@@ -1,21 +1,43 @@
 package com.revature.eval.java.core;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EvaluationService {
 
-	/**
+	/*
 	 * 1. Convert a phrase to its acronym. Techies love their TLA (Three Letter
 	 * Acronyms)! Help generate some jargon by writing a program that converts a
 	 * long name like Portable Network Graphics to its acronym (PNG).
 	 * 
 	 * @param phrase
+	 * 
 	 * @return
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+
+		// Enters first index into acronym
+		String acronym = "";
+
+		// Makes sure acronym is ALL CAPS
+		acronym = acronym + phrase.toUpperCase().charAt(0);
+
+		// Will enter letter after each space
+		for (int i = 1; i <= phrase.length() - 1; i++) {
+			if (phrase.charAt(i - 1) == ' ' || phrase.charAt(i - 1) == '-') {
+				acronym += phrase.toUpperCase().charAt(i);
+			}
+		}
+
+//		System.out.println(acronym);
+
+		return acronym;
 	}
 
 	/**
@@ -35,7 +57,66 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+
+		// initialize variables to empty or 0 -> no garbage values
+		char str = '\0';
+		int score = 0;
+
+		for (int i = 0; i < string.length(); i++) { // gets each letter of word and accounts for upper case
+			str = string.toLowerCase().charAt(i);
+
+			// Passes each letter to calculate score given case
+			switch (str) {
+			case 'a':
+			case 'e':
+			case 'i':
+			case 'o':
+			case 'u':
+			case 'l':
+			case 'n':
+			case 'r':
+			case 's':
+			case 't':
+				score = score + 1;
+				break;
+			case 'd':
+			case 'g':
+				score += 2;
+				break;
+			case 'b':
+			case 'c':
+			case 'm':
+			case 'p':
+				score += 3;
+				break;
+			case 'f':
+			case 'h':
+			case 'v':
+			case 'w':
+			case 'y':
+				score += 4;
+				break;
+			case 'k':
+				score += 5;
+				break;
+			case 'j':
+			case 'x':
+				score += 8;
+				break;
+			case 'q':
+			case 'z':
+				score += 10;
+				break;
+			default:
+				break;
+			}
+			// System.out.println("Score given letter " + str + " : " + score);
+		} // end of score calculation
+
+		// Final Score
+//		System.out.println("Score of " + string + " : " + score);
+
+		return score;
 	}
 
 	/**
@@ -71,7 +152,30 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+
+		int MAX_PHONE_NUM = 10; // Phone number limit
+
+//		System.out.println("Entered string: " + string);
+
+		// clearing any symbols
+		for (int i = 0; i < string.length(); i++) {
+
+			// Taking out symbols
+			if ((string.charAt(i) == '(') | (string.charAt(i) == ')') | (string.charAt(i) == '-') | (string.charAt(i) == '.')) {
+				string = string.replace(string.charAt(i), ' ');
+			}
+		}
+
+		// Removes all white-spaces within phone number
+		string = string.replaceAll("[\\s\\D]", "");
+		
+		if (string.length() != MAX_PHONE_NUM) {
+			throw new IllegalArgumentException("Invalid Phone Number");
+		}
+
+//		System.out.println("After: " + string);
+
+		return string;
 	}
 
 	/**
@@ -85,7 +189,39 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+
+		// Created new map - key: String, value: Integer
+		Map<String, Integer> Occurrence = new HashMap<>();
+		Integer count = 1;
+		Integer initial = 1;
+		String[] word;
+
+		word = string.split("[,\\s\\n]+");
+
+		// System.out.println("Word List Below:"); // Puts all words into list
+		for (int i = 0; i < word.length; i++) {
+
+			if (Occurrence.get(word[i]) == null) {
+				Occurrence.put(word[i], initial);
+
+				// System.out.println(word[i]);
+			} else {
+				Occurrence.put(word[i], count += 1);
+			}
+		}
+
+//		print(Occurrence);
+
+		return Occurrence;
+	}
+
+	// used only to print out my map if needed
+	private void print(Map<String, Integer> map) {
+		// TODO Auto-generated method stub
+		if (map.isEmpty())
+			System.out.println("Map is empty");
+		else
+			System.out.println(map);
 	}
 
 	/**
@@ -128,7 +264,34 @@ public class EvaluationService {
 
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
-			return 0;
+/*
+			Object[] compare = sortedList.toArray();
+
+			int indexOf = 0;
+			
+			for (int i = 0; i < compare.length; i++) {
+
+				// If compare and t indices match, return index
+				if (t.equals(compare[i]))
+					indexOf = i;
+				
+				// t is smaller, compare larger list
+				if(compare[(compare.length/2)] > t[i]) {
+
+					// Spilt up the array and call 
+					// function to check larger set
+				}
+					
+					
+				// t is bigger, compare smaller list	
+				if((compare.length/2) < t[i]) {
+
+					// Spilt up the array and call 
+					// function to check larger set
+				}
+
+	*/			
+			return 0; // indexOf;
 		}
 
 		public BinarySearch(List<T> sortedList) {
@@ -163,7 +326,29 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		String in = Integer.toString(input);
+		int armNum = 0;
+		int base = 0;
+		int expo = 0;
+
+		// calculation for Armstrong number
+		for (int i = 0; i < in.length(); i++) {
+
+			// Turn the string index into proper number
+			base = Character.getNumericValue(in.charAt(i));
+			expo = (int) in.length();
+
+			armNum += Math.pow(base, expo);
+		}
+
+//		System.out.println("Input: " + input);
+//		System.out.println("ArmNum Result: " + armNum);
+
+		// checks if input is armNum
+		if (armNum == input)
+			return true;
+		else
+			return false;
 	}
 
 	/**
@@ -178,9 +363,28 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-		return null;
-	}
 
+		List<Long> primeList = new ArrayList<Long>();
+
+		// test prime number algorithm
+		if (l == 2)
+			primeList.add(l); // Two is its own prime factor
+		else {
+
+			for (long x = 2; x < l; x++) {
+
+				while (l % x == 0) { // checks if number is divisible by prime 2
+					primeList.add(x); // x is a prime factor
+					l = l / x; // divide by x to get next non-factorize number
+				}
+			}
+			if (l > 2) {
+				primeList.add(l); // l is a prime factor
+			}
+		}
+
+		return primeList;
+	}
 
 	/**
 	 * 8-9. Create an implementation of the atbash cipher, an ancient encryption
@@ -214,9 +418,152 @@ public class EvaluationService {
 		 * @param string
 		 * @return
 		 */
+
+		static String plain = "abcdefghijklmnopqrstuvwxyz";
+		static String cipher = "zyxwvutsrqponmlkjihgfedcba";
+
 		public static String encode(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+
+			String newStr = nonEncyptStr(string);
+
+			String encyptStr = encypt(newStr);
+
+			String finEnc = finalEncyrpt(encyptStr);
+
+//			 System.out.println("FinStr:" + finEnc);
+
+			return finEnc;
+		}
+
+		private static String finalEncyrpt(String fStr) {
+			// StringBuffer sb = new StringBuffer(fStr);
+			String temp = "";
+
+			for (int i = 0; i < fStr.length(); i++) {
+
+				// Every 5th index put space
+				if ((i % 5 == 0) && (i != 0)) {
+					temp += " ";
+				}
+
+				temp += fStr.charAt(i);
+			}
+
+			return temp;
+		}
+
+		private static String nonEncyptStr(String str1) {
+
+			// lower case all strings before an encryp/decrypt happens
+			str1 = str1.toLowerCase();
+			String str2 = "";
+
+			// Makes sure only letters/numbers are in the string
+			str2 = str1.replaceAll("[^a-z0-9]+", "\0");
+			str2 = str2.replaceAll("\0", "");
+
+			return str2;
+		}
+
+		private static String encypt(String newStr) {
+			String encWd = "";
+			char nonEncCh; // non-encrypted character
+
+			// iterate through the length of word
+			for (int i = 0; i < newStr.length(); i++) {
+
+				// Get letter from word
+				nonEncCh = newStr.charAt(i);
+
+				switch (nonEncCh) {
+
+				case 'a':
+					nonEncCh = 'z';
+					break;
+				case 'b':
+					nonEncCh = 'y';
+					break;
+				case 'c':
+					nonEncCh = 'x';
+					break;
+				case 'd':
+					nonEncCh = 'w';
+					break;
+				case 'e':
+					nonEncCh = 'v';
+					break;
+				case 'f':
+					nonEncCh = 'u';
+					break;
+				case 'g':
+					nonEncCh = 't';
+					break;
+				case 'h':
+					nonEncCh = 's';
+					break;
+				case 'i':
+					nonEncCh = 'r';
+					break;
+				case 'j':
+					nonEncCh = 'q';
+					break;
+				case 'k':
+					nonEncCh = 'p';
+					break;
+				case 'l':
+					nonEncCh = 'o';
+					break;
+				case 'm':
+					nonEncCh = 'n';
+					break;
+				case 'n':
+					nonEncCh = 'm';
+					break;
+				case 'o':
+					nonEncCh = 'l';
+					break;
+				case 'p':
+					nonEncCh = 'k';
+					break;
+				case 'q':
+					nonEncCh = 'j';
+					break;
+				case 'r':
+					nonEncCh = 'i';
+					break;
+				case 's':
+					nonEncCh = 'h';
+					break;
+				case 't':
+					nonEncCh = 'g';
+					break;
+				case 'u':
+					nonEncCh = 'f';
+					break;
+				case 'v':
+					nonEncCh = 'e';
+					break;
+				case 'w':
+					nonEncCh = 'd';
+					break;
+				case 'x':
+					nonEncCh = 'c';
+					break;
+				case 'y':
+					nonEncCh = 'b';
+					break;
+				case 'z':
+					nonEncCh = 'a';
+					break;
+				default:
+					break;
+				}
+
+				encWd += nonEncCh;
+			}
+
+			return encWd;
 		}
 
 		/**
@@ -227,7 +574,16 @@ public class EvaluationService {
 		 */
 		public static String decode(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+
+			// Prepares the string to be decrypted
+			String newStr = nonEncyptStr(string);
+
+			// Encrypting and decrypting have the same algorithm
+			String decyptStr = encypt(newStr);
+
+//			System.out.println("FinStr:" + decyptStr);
+
+			return decyptStr;
 		}
 	}
 
@@ -260,7 +616,78 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		String cmd = "";
+		Integer num1 = 0, num2 = 0, num3 = 0;
+		int result = 0;
+
+//		System.out.println(string);
+
+		// Eliminate '?' char then parse string into words
+		string = string.replaceAll("[?]", "");
+		String[] parsed = string.split(" ");
+
+		/*
+		// checks for operator
+		for (int i = 0; i < parsed.length; i++) {
+
+			System.out.println(parsed[i]);
+				
+			// checks for operator
+			if ((parsed[i].toString() == "plus") || (parsed[i].toString() == "minus")
+					|| (parsed[i].toString() == "multiplied") || (parsed[i].toString() == "divided")) {
+				System.out.println("If " + parsed[i]);
+				cmd = parsed[i];
+			}
+				
+		}
+		*/
+		
+		cmd = parsed[3];
+		num1 = Integer.parseInt(parsed[2]);
+		
+		switch (cmd) {
+
+		case "plus":
+			num2 = Integer.parseInt(parsed[4]);
+			result = add(num1, num2);
+			break;
+		case "minus":
+			num2 = Integer.parseInt(parsed[4]);
+			result = subtract(num1, num2);
+			break;
+		case "multiplied":
+			num3 = Integer.parseInt(parsed[5]);
+			result = mult(num1, num3);
+			break;
+		case "divided":
+			num3 = Integer.parseInt(parsed[5]);
+			result = divide(num1, num3);
+			break;
+		default:
+			System.out.println("Something wrong occured");
+			break;
+		}
+
+		return result;
 	}
 
+	public static int add(int n1, int n2) {
+
+		return n1 + n2;
+	}
+
+	public static int subtract(int n1, int n2) {
+
+		return n1 - n2;
+	}
+
+	public static int mult(int n1, int n2) {
+
+		return n1 * n2;
+	}
+
+	public static int divide(int n1, int n2) {
+
+		return n1 / n2;
+	}
 }
